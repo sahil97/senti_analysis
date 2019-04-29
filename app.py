@@ -37,6 +37,10 @@ def preProcess(transformer, str):
         return str
 
 
+@app.route('/')
+def home():
+    return "Here will be the API Docs"
+
 
 
 @app.route('/api/v0.1/inference',methods = ['POST'])
