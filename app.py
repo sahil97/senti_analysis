@@ -39,7 +39,9 @@ def preProcess(transformer, str):
 
 @app.route('/')
 def home():
-    return "Here will be the API Docs"
+    return jsonify({
+        "text":"Here will be the API Docs"
+    })
 
 
 
@@ -55,4 +57,4 @@ def inference():
     })
 
 if __name__== '__main__':
-    app.run()
+    app.run(debug=True)
