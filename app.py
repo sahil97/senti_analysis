@@ -1,11 +1,6 @@
 from flask import Flask,request, jsonify
 from flask_restful import Resource, reqparse, Api
-#Instantiate a flask object
-app = Flask(__name__)
-#Instantiate Api object
-api = Api(app)
-
-
+import base as helper
 
 # data analysis and wrangling
 import pandas as pd
@@ -15,8 +10,10 @@ import pickle as pkl
 
 # machine learning
 from sklearn.naive_bayes import GaussianNB
-
-
+#Instantiate a flask object
+app = Flask(__name__)
+#Instantiate Api object
+api = Api(app)
 
 
 
@@ -55,6 +52,27 @@ def inference():
     return jsonify({
         "inference":sentiment
     })
+
+@app.route('/api/v0.1/tweets', methods = ['POST','GET'])
+def tweet():
+    # content = request.json
+    # hashtag = content["hashtag"]
+    # count = content["count"]
+    result = helper.tweet_sentiment_results("Positive",100,loaded_vec,loaded_model)
+    print(len(result))
+    result_sorted = result.sort_values(by=['time'],ascending=True)
+    result_sorted['time'] = result_sorted['time'].apply(lambda x: helper.round_to_hour(x))
+    result_sorted = result_sorted.groupby(by=['time','inf']).count()
+    result_sorted = result_sorted.reset_index()
+    pos_reviews = result_sorted[result_sorted['inf']==4]
+    pos_reviews.drop(['sentiment'],axis=1,inplace=True)
+    neg_reviews = result_sorted[result_sorted['inf']==0]
+    neg_reviews.drop(['sentiment'],axis=1,inplace=True)
+    return jsonify({
+        "positive": pos_reviews.to_dict('records'),
+        "Negative": neg_reviews.to_dict('records')
+    })
+
 
 if __name__== '__main__':
     app.run(debug=True)
