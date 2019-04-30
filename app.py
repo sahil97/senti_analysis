@@ -60,7 +60,7 @@ def tweet():
     # content = request.json
     # hashtag = content["hashtag"]
     # count = content["count"]
-    result = helper.tweet_sentiment_results("Positive",100,loaded_vec,loaded_model)
+    result = helper.tweet_sentiment_results("India",10000,loaded_vec,loaded_model)
     print(len(result))
     result_sorted = result.sort_values(by=['time'],ascending=True)
     result_sorted['time'] = result_sorted['time'].apply(lambda x: helper.round_to_hour(x))
