@@ -57,10 +57,13 @@ def inference():
 
 @app.route('/api/v0.1/tweets', methods = ['POST','GET'])
 def tweet():
-    # content = request.json
-    # hashtag = content["hashtag"]
-    # count = content["count"]
-    result = helper.tweet_sentiment_results("India",10000,loaded_vec,loaded_model)
+    content = request.json
+    hashtag = content["hashtag"]
+    count = content["count"]  # Will be mulitplied by 100
+    result = pd.DataFrame()
+    for(var i=0;i<count;i++){
+        result = result.append(tweet_sentiment_results(hashtag,1000,loaded_vec,loaded_model))
+    }
     print(len(result))
     result_sorted = result.sort_values(by=['time'],ascending=True)
     result_sorted['time'] = result_sorted['time'].apply(lambda x: helper.round_to_hour(x))
