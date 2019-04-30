@@ -1,7 +1,7 @@
 from flask import Flask,request, jsonify
 from flask_restful import Resource, reqparse, Api
 import base as helper
-
+from flask_cors import CORS
 # data analysis and wrangling
 import pandas as pd
 import numpy as np
@@ -12,6 +12,8 @@ import pickle as pkl
 from sklearn.naive_bayes import GaussianNB
 #Instantiate a flask object
 app = Flask(__name__)
+CORS(app)
+
 #Instantiate Api object
 api = Api(app)
 
