@@ -1,17 +1,19 @@
 from flask import Flask,request, jsonify
 from flask_restful import Resource, reqparse, Api
 import base as helper
-
+from flask_cors import CORS
 # data analysis and wrangling
 import pandas as pd
 import numpy as np
 from sklearn import feature_extraction, model_selection, naive_bayes, metrics, svm
 import pickle as pkl
-
+import datetime as datetime
 # machine learning
 from sklearn.naive_bayes import GaussianNB
 #Instantiate a flask object
 app = Flask(__name__)
+CORS(app)
+
 #Instantiate Api object
 api = Api(app)
 
@@ -53,21 +55,30 @@ def inference():
         "inference":sentiment
     })
 
-@app.route('/api/v0.1/tweets', methods = ['POST','GET'])
+@app.route('/api/v0.1/tweets', methods = ['POST'])
 def tweet():
-    # content = request.json
-    # hashtag = content["hashtag"]
-    # count = content["count"]
-    result = helper.tweet_sentiment_results("Positive",100,loaded_vec,loaded_model)
+    content = request.json
+    hashtag = content["hashtag"]
+    count = content["count"]  # Will be mulitplied by 100
+    result = pd.DataFrame()
+    for i in range(count):
+        result = result.append(helper.tweet_sentiment_results(hashtag,1000,loaded_vec,loaded_model))
+        print(i)
+        print(len(result))
     print(len(result))
     result_sorted = result.sort_values(by=['time'],ascending=True)
-    result_sorted['time'] = result_sorted['time'].apply(lambda x: helper.round_to_hour(x))
+    print(len(result_sorted))
+    result_sorted['time'] = result_sorted['time'].apply(lambda x: datetime.datetime(x.year, x.month, x.day, x.hour,5*round((float(x.minute) + float(x.second)/60) / 6)))
     result_sorted = result_sorted.groupby(by=['time','inf']).count()
+    print(len(result_sorted))
     result_sorted = result_sorted.reset_index()
+    print(len(result_sorted))
     pos_reviews = result_sorted[result_sorted['inf']==4]
     pos_reviews.drop(['sentiment'],axis=1,inplace=True)
+    print(len(pos_reviews))
     neg_reviews = result_sorted[result_sorted['inf']==0]
     neg_reviews.drop(['sentiment'],axis=1,inplace=True)
+    print(len(neg_reviews))
     return jsonify({
         "positive": pos_reviews.to_dict('records'),
         "Negative": neg_reviews.to_dict('records')
