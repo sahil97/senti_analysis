@@ -1,0 +1,13 @@
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  margin-bottom: 5px;
+  color: blue;
+  cursor: pointer;
+}
