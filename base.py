@@ -89,6 +89,15 @@ def clean_text(text):
     return text
 
 
+def limit_handled(cursor):
+    while True:
+        try:
+            yield cursor.next()
+        except tweepy.RateLimitError:
+            print("rate limit reached")
+            time.sleep(15 * 60)
+
+
 
 def load_tweets(hashtag,count):
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
@@ -97,11 +106,30 @@ def load_tweets(hashtag,count):
     df = pd.DataFrame(columns=['time','tweet'])
     time = []
     tweets = []
-    for tweet in tweepy.Cursor(api.search,q="#"+hashtag,count=count,lang="en",since="2019-04-03").items(count):
+    print("first here")
+
+    for tweet in limit_handled(tweepy.Cursor(api.search,q="#"+hashtag,lang="en",since="2019-04-03",include_entities=True).items(1500)):
         if(len(tweets)>0 and tweet.text == tweets[-1]):
             continue
         time.append(tweet.created_at)
         tweets.append(tweet.text)
+    # c = tweepy.Cursor(api.search,q="#"+hashtag,lang="en",since="2019-04-03",include_entities=True).items()
+    # while True:
+    #     try:
+    #         tweet = c.next()
+    #         # if(len(tweets)>0 and tweet.text == tweets[-1]):
+    #         #     continue
+    #         time.append(tweet.created_at)
+    #         tweets.append(tweet.text)
+    #         # Insert into db
+    #     except tweepy.RateLimitError:
+    #         console.log("tweepy error")
+    #         break
+    #         # time.sleep(60 * 15)
+    #         # continue
+    #     except StopIteration:
+    #         print("third here")
+    #         break
     df['time'] = time
     df['tweet'] = tweets
     return df

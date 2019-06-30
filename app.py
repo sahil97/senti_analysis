@@ -61,12 +61,12 @@ def tweet():
     hashtag = content["hashtag"]
     count = content["count"]  # Will be mulitplied by 100
     result = pd.DataFrame()
-    for i in range(count):
-        result = result.append(helper.tweet_sentiment_results(hashtag,1000,loaded_vec,loaded_model))
-        print(i)
-        print(len(result))
+    # for i in range(count):
+    result = result.append(helper.tweet_sentiment_results(hashtag,200,loaded_vec,loaded_model))
+        # print(len(result))
     print(len(result))
     result_sorted = result.sort_values(by=['time'],ascending=True)
+    del result
     print(len(result_sorted))
     result_sorted['time'] = result_sorted['time'].apply(lambda x: datetime.datetime(x.year, x.month, x.day, x.hour,5*round((float(x.minute) + float(x.second)/60) / 6)))
     result_sorted = result_sorted.groupby(by=['time','inf']).count()
@@ -79,6 +79,7 @@ def tweet():
     neg_reviews = result_sorted[result_sorted['inf']==0]
     neg_reviews.drop(['sentiment'],axis=1,inplace=True)
     print(len(neg_reviews))
+    del result_sorted
     return jsonify({
         "positive": pos_reviews.to_dict('records'),
         "Negative": neg_reviews.to_dict('records')
