@@ -1,3 +1,13 @@
+input:focus,
+select:focus,
+textarea:focus,
+button:focus,
+.form-control:focus {
+  outline: none;
+  background-color: transparent;
+  box-shadow: none;
+}
+
 .img-responsive {
   display: block;
   max-width: 100%;
@@ -5,9 +15,9 @@
 }
 
 .twitter-logo {
-  display: block;
+  display: inline-block;
   margin: auto;
-  max-width: 31.8%;
+  width: 31.8%;
 }
 .twitter-logo img {
   margin-top: 1em;
@@ -18,7 +28,6 @@
   margin: 1em auto;
   display: block;
   width: 75%;
-  text-align: center;
 }
 
 .text-block {
@@ -33,10 +42,6 @@
   border-radius: 50px;
   width: 100%;
   box-shadow: 0 2px 6px 0 rgba(134, 134, 134, 0.5);
-}
-
-.wrapper {
-  line-height: 70px;
 }
 
 .input-wrapper input {
@@ -79,6 +84,10 @@
     height: 50px;
   }
 
+  .text-block {
+    margin: 2.5em 0;
+  }
+
   .input-wrapper input {
     font-size: 16px;
     height: 48px;
@@ -89,5 +98,50 @@
     width: 51px;
     height: 51px;
     background-size: 50%;
+  }
+  .main-wrapper {
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .twitter-logo {
+    width: 30%;
+    margin: 2em 4em;
+  }
+
+  .wrapper h1 {
+    font-size: 2em;
+  }
+
+  .wrapper {
+    position: absolute;
+    top: 3em;
+    height: 100%;
+    line-height: 5em;
+    width: auto;
+    display: inline-block;
+  }
+
+  .input-wrapper input {
+    font-size: 18px;
+    height: 51px;
+    margin-left: 10px;
+  }
+
+  .input-wrapper .search {
+    width: 55px;
+    height: 55px;
+    background-size: 50%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .wrapper h1 {
+    font-size: 3em;
+  }
+
+  .wrapper p {
+    font-size: 1.5em;
   }
 }
