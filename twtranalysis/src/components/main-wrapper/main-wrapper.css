@@ -1,0 +1,93 @@
+.img-responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.twitter-logo {
+  display: block;
+  margin: auto;
+  max-width: 31.8%;
+}
+.twitter-logo img {
+  margin-top: 1em;
+}
+
+.wrapper {
+  text-align: center;
+  margin: 1em auto;
+  display: block;
+  width: 75%;
+  text-align: center;
+}
+
+.text-block {
+  color: #fff;
+  font-weight: "300";
+}
+
+.input-wrapper {
+  position: relative;
+  background: #fff;
+  border: 0px solid #ccc;
+  border-radius: 50px;
+  width: 100%;
+  box-shadow: 0 2px 6px 0 rgba(134, 134, 134, 0.5);
+}
+
+.wrapper {
+  line-height: 70px;
+}
+
+.input-wrapper input {
+  border: 0;
+  background: transparent;
+  font-size: 14px;
+}
+
+.input-wrapper .search {
+  display: inline-block;
+  position: absolute;
+  top: -2px;
+  right: -5px;
+  width: 42px;
+  height: 42px;
+  background: #42b4fc url("/search.png") no-repeat center center;
+  background-size: 50%;
+  border: 1px solid #42b4fc;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px 0 rgba(134, 134, 134, 0.5);
+}
+
+.wrapper h1 {
+  text-align: center;
+  font-size: 1.75em;
+}
+
+.wrapper p {
+  font-size: 1em;
+}
+
+@media only screen and (max-width: 350px) {
+  .input-wrapper {
+    height: 40px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .input-wrapper {
+    height: 50px;
+  }
+
+  .input-wrapper input {
+    font-size: 16px;
+    height: 48px;
+    margin-left: 8px;
+  }
+
+  .input-wrapper .search {
+    width: 51px;
+    height: 51px;
+    background-size: 50%;
+  }
+}
