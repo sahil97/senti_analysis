@@ -7,7 +7,7 @@ const Nav = props => (
   <Navbar className="cnav" variant="dark">
     <Navbar.Brand href="#home">
       {props.hashtag ? (
-        <p className="hashtag">{props.hashtag}</p>
+        <p className="hashtag">{"#" + props.hashtag}</p>
       ) : (
         <p className="hashtag">#hashtag</p>
       )}

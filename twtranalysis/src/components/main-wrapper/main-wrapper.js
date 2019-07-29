@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./main-wrapper.css";
+import { Link } from "react-router-dom";
 
 class MainWrapper extends Component {
   state = {
@@ -41,7 +42,13 @@ class MainWrapper extends Component {
               value={this.state.hashtag}
               onChange={this.handleTextChange.bind(this)}
             />
-            <div className="search"></div>
+            <Link
+              className="search"
+              to={{
+                pathname: "/results",
+                search: "?hashtag=" + this.state.hashtag.split("#")[1]
+              }}
+            ></Link>
           </div>
         </div>
       </div>
