@@ -7,7 +7,13 @@ class MainWrapper extends Component {
   };
 
   handleTextChange = event => {
-    this.setState({ hashtag: event.target.value + "1" });
+    if (this.state.hashtag.length > 0) {
+      this.setState({ hashtag: event.target.value });
+    } else {
+      this.setState({
+        hashtag: "# " + event.target.value
+      });
+    }
   };
 
   render() {
