@@ -20,6 +20,9 @@ class LinePlot extends Component {
     scales: {
       xAxes: [
         {
+          gridLines: {
+            color: "transparent"
+          },
           type: "time",
           time: {
             unit: "hours",
@@ -32,10 +35,6 @@ class LinePlot extends Component {
       ],
       yAxes: [
         {
-          gridLines: {
-            color: "black",
-            borderDash: [2, 5]
-          },
           scaleLabel: {
             display: true,
             labelString: "Tweet Count",
@@ -78,15 +77,11 @@ class LinePlot extends Component {
       ]
     };
 
-    let LinePlot = <h1>Loading</h1>;
-
-    if (this.props.linePlotData.labels) {
-      LinePlot = (
+    return (
+      <div>
         <Line data={speedData} options={this.chartOptions} height={400} />
-      );
-    }
-
-    return <div>{LinePlot}</div>;
+      </div>
+    );
   }
 }
 

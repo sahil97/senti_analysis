@@ -5,6 +5,7 @@ import MyResponsiveLine from "../Graphs/line-plot/line-plot";
 import Aux from "../../HOC/Aux/Aux";
 import axios from "../../axios";
 import moment from "moment";
+import Spinner from "../Spinner/Spinner";
 
 class ResultsPage extends Component {
   state = {
@@ -64,26 +65,33 @@ class ResultsPage extends Component {
     });
 
     this.setState({
-      total_count: response.total_count,
-      retweets: response.retweets,
+      total_count: response.data.total_count,
+      retweets: response.data.retweets,
       linePlotData: {
         labels: labels,
         plotData: plotData
       }
     });
-
-    console.log("Done");
   };
 
   render() {
-    return (
-      <Aux>
-        <Nav hashtag={this.state.hashtag} />
-        <div className="linePlotContainer">
-          <MyResponsiveLine linePlotData={this.state.linePlotData} />
-        </div>
-      </Aux>
+    let linePlotContainer = (
+      <div className="Spinner">
+        <Spinner />
+      </div>
     );
+    if (this.state.total_count) {
+      linePlotContainer = (
+        <Aux>
+          <Nav hashtag={this.state.hashtag} />
+          <div className="linePlotContainer">
+            <MyResponsiveLine linePlotData={this.state.linePlotData} />
+          </div>
+        </Aux>
+      );
+    }
+
+    return <Aux>{linePlotContainer}</Aux>;
   }
 }
 export default ResultsPage;
