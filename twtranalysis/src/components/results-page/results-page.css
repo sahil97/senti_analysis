@@ -1,4 +1,8 @@
 .linePlotContainer {
-  height: 400px;
+  height: 500px;
   width: 95%;
+}
+
+.Line {
+  height: 500px;
 }
