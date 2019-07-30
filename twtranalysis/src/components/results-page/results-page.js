@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import "./results-page.css";
 import Nav from "../Navbar/Nav";
+import MyResponsiveLine from "../Graphs/line-plot/line-plot";
+import Aux from "../../HOC/Aux/Aux";
 
 class ResultsPage extends Component {
   state = {
@@ -17,7 +20,14 @@ class ResultsPage extends Component {
   }
 
   render() {
-    return <Nav hashtag={this.state.hashtag} />;
+    return (
+      <Aux>
+        <Nav hashtag={this.state.hashtag} />
+        <div className="linePlotContainer">
+          <MyResponsiveLine />
+        </div>
+      </Aux>
+    );
   }
 }
 export default ResultsPage;
