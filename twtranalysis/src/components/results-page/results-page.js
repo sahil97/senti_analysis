@@ -89,12 +89,17 @@ class ResultsPage extends Component {
             <MyResponsiveLine linePlotData={this.state.linePlotData} />
           </div>
           <div className="tweetCount">
-            <h4>Number of Users Tweeting</h4>
-            <h1>{this.state.total_count}</h1>
+            <div className="middle-align">
+              <h4>Number of Users Tweeting</h4>
+              <h1>{this.state.total_count}</h1>
+            </div>
           </div>
           <div className="pieChart">
             <h4>Activity Ratio</h4>
-            <PieChart />
+            <PieChart
+              totalCount={this.state.total_count}
+              retweets={this.state.retweets}
+            />
           </div>
         </Aux>
       );

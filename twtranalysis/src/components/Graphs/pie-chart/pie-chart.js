@@ -6,12 +6,15 @@ class DoughnutChart extends Component {
   data = {
     datasets: [
       {
-        data: [10, 20],
+        data: [
+          this.props.retweets,
+          this.props.totalCount - this.props.retweets
+        ],
         backgroundColor: ["white", "#2A729D"]
         // These labels appear in the legend and in the tooltips when hovering different arcs
       }
     ],
-    labels: ["Original", "Retweets"]
+    labels: ["Retweets", "Original"]
   };
 
   chartOptions = {

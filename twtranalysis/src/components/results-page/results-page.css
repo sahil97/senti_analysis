@@ -13,23 +13,26 @@
 }
 
 .tweetCount {
+  display: table;
   letter-spacing: 2.8px;
   color: #3c92c9;
   font-size: 1.5rem;
+  width: 100%;
   margin-top: 1em;
   background: white;
   text-align: center;
   font-family: "Muli", sans-serif;
-  vertical-align: middle;
-  padding: 0.3em;
   box-sizing: border-box;
 }
 
 .pieChart {
+  font-family: "Muli", sans-serif;
   padding: 1em;
   text-align: center;
   color: #fff;
-  background: radial-gradient(46% 169%, #55c8ff 49%, #42b4fc 100%);
+  max-width: 768px;
+  display: block;
+  margin: auto;
 }
 
 .pieChart h4 {
@@ -39,6 +42,12 @@
 .tweetCount h1 {
   font-size: 72px;
 }
+
+.tweetCount .middle-align {
+  vertical-align: middle;
+  display: table-cell;
+}
+
 @media (max-width: 2560px) {
   .tweetCount {
     height: 249px;
