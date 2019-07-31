@@ -5,6 +5,9 @@ import pandas as pd
 import numpy as np
 import datetime
 import os
+import func
+import pickle as pkl
+from sklearn import feature_extraction
 
 
 try:
@@ -24,6 +27,12 @@ except:
 
 # Config Variables
 columns = ['created_at', 'coordinates','text']
+
+try:
+    loaded_vec = feature_extraction.text.CountVectorizer(decode_error="replace",vocabulary=pkl.load(open("vect.pkl", "rb")))
+    loaded_model = pkl.load(open("naiveBayes.pkl", 'rb'))
+except:
+    print("Cannot load ML models")
 
 def limit_handled(cursor):
     while True:
@@ -107,7 +116,7 @@ def roundTime(dt=None, hours=0, minutes=1):
     rounding = (seconds+roundTo/2) // roundTo * roundTo
     return dt + datetime.timedelta(0,rounding-seconds,-dt.microsecond)
 
-def groupByTime(data_frame, column_name):
+def groupByTime(data_frame, column_name, end_value):
     time_pairs = [[0,1],[0,5],[0,10],[0,15],[0,30],[1,0],[1,15],[1,30],[1,45],[2,0],[3,0],[4,0]]
     time_groups = np.inf
     i=0
@@ -116,14 +125,21 @@ def groupByTime(data_frame, column_name):
 #     Checking if type is of type DateTime
     if(data_frame[column_name].dtype != '<M8[ns]'):
         data_frame[column_name] = data_frame[column_name].apply(lambda x: datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S') )
+    if(end_value==0):
+        while (time_groups>=10 and i<len(time_pairs)):
+            hours, minutes = time_pairs[i]
+            data_frame[time_grouped_column_name] = data_frame[column_name].apply(lambda x: roundTime(dt=x, hours = hours, minutes = minutes))
+            time_groups = len(data_frame[time_grouped_column_name].value_counts())
+            i += 1
+        return data_frame, time_grouped_column_name, i-1
 
-    while (time_groups>=10 and i<len(time_pairs)):
+    else:
+        i = end_value
         hours, minutes = time_pairs[i]
         data_frame[time_grouped_column_name] = data_frame[column_name].apply(lambda x: roundTime(dt=x, hours = hours, minutes = minutes))
         time_groups = len(data_frame[time_grouped_column_name].value_counts())
-        i += 1
+        return data_frame, time_grouped_column_name, i
 
-    return data_frame, time_grouped_column_name
 
 def return_time_count(data_frame, column_name):
 
@@ -139,3 +155,13 @@ def return_time_count(data_frame, column_name):
         })
 
     return time_count
+
+def split_into_pos_neg(df, end_value):
+    res = func.spit_results(df,loaded_vec,loaded_model)
+    pos_df = res[res['sentiment']=='Positive'].copy()
+    neg_df = res[res['sentiment']=='Negative'].copy()
+    pos_time_grouped_df, time_grouped_column_name, end_value = groupByTime(pos_df, 'created_at', end_value)
+    pos_count = return_time_count(pos_time_grouped_df, time_grouped_column_name)
+    neg_time_grouped_df, time_grouped_column_name, end_value = groupByTime(neg_df, 'created_at', end_value)
+    neg_count = return_time_count(neg_time_grouped_df, time_grouped_column_name)
+    return pos_count,len(pos_df), neg_count, len(neg_df)

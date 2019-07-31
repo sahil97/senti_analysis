@@ -32,14 +32,19 @@ def return_tweets():
     content = request.json
     hashtag = content["hashtag"]
 
-    temp_df, retweets = helper.get_tweets(hashtag, 1000)
-    temp_df, time_grouped_column_name = helper.groupByTime(temp_df, 'created_at')
+    temp_df, retweets = helper.get_tweets(hashtag, 10000)
+    temp_df, time_grouped_column_name, end_value = helper.groupByTime(temp_df, 'created_at',0)
     time_count = helper.return_time_count(temp_df, time_grouped_column_name)
+    pos_count,pos_tweets, neg_count, neg_tweets = helper.split_into_pos_neg(temp_df,end_value)
 
     return jsonify({
         "total_count": len(temp_df),
         "retweets": retweets,
-        "time_count": time_count
+        "time_count": time_count,
+        "pos_count": pos_count,
+        "pos_tweets": pos_tweets,
+        "neg_count": neg_count,
+        "neg_tweets": neg_tweets
     })
 
 if __name__== '__main__':
