@@ -1,5 +1,6 @@
 import React from "react";
 import "./Nav.css";
+import { Link } from "react-router-dom";
 import { Navbar } from "react-bootstrap";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 
@@ -12,9 +13,9 @@ const Nav = props => (
         <p className="hashtag">#hashtag</p>
       )}
     </Navbar.Brand>
-    <a href="/" className="ml-auto back-btn">
+    <Link to="/" className="ml-auto back-btn">
       <FaArrowAltCircleLeft /> Back to search
-    </a>
+    </Link>
   </Navbar>
 );
 

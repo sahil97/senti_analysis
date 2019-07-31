@@ -3,6 +3,13 @@
   height: 100%;
 }
 
+html,
+body,
+#app,
+#app > div {
+  height: 100%;
+}
+
 input:focus,
 textarea:focus,
 select:focus {

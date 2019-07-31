@@ -17,7 +17,7 @@ class ResultsPage extends Component {
     negTweets: 0
   };
 
-  response = {
+  tempResponse = {
     data: {
       neg_count: [
         {
@@ -134,15 +134,18 @@ class ResultsPage extends Component {
       this.setState({ hashtag: param[1] });
     }
 
-    // axios
-    //   .post("", {
-    //     hashtag: "India"
-    //   })
-    //   .then(res => console.log("res", res));
-
-    setTimeout(() => {
-      this.showTweets(this.response);
-    }, 3000);
+    axios
+      .post("", {
+        hashtag: this.state.hashtag
+      })
+      .then(res => {
+        console.log("res", res);
+        this.showTweets(res);
+      })
+      .catch(err => {
+        console.log("Couldn't fetch, showing sample tweets");
+        this.showTweets(this.tempResponse);
+      });
   }
 
   showTweets = response => {

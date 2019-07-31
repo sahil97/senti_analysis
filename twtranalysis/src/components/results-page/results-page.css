@@ -3,6 +3,10 @@
   background: url("/bg.png") no-repeat center center fixed;
 }
 
+body {
+  overflow-y: scroll;
+}
+
 .results-page {
   background: white;
   height: 100%;

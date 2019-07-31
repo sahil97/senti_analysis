@@ -19,7 +19,7 @@ class MainWrapper extends Component {
 
   render() {
     return (
-      <div className="main-wrapper">
+      <div className="main-wrapper" style={{ overflowY: "hidden" }}>
         <div className="twitter-logo">
           <img
             className="img-responsive"
