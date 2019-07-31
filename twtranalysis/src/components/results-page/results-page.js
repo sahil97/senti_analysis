@@ -12,103 +12,119 @@ class ResultsPage extends Component {
     hashtag: "",
     retweets: 0,
     total_count: 0,
-    linePlotData: {}
+    linePlotData: {},
+    posTweets: 0,
+    negTweets: 0
   };
 
   response = {
     data: {
       neg_count: [
         {
-          count: 59,
-          time: "Wed, 31 Jul 2019 12:00:00 GMT"
+          count: 58,
+          time: "Wed, 31 Jul 2019 13:30:00 GMT"
         },
         {
-          count: 55,
-          time: "Wed, 31 Jul 2019 12:30:00 GMT"
+          count: 58,
+          time: "Wed, 31 Jul 2019 13:15:00 GMT"
+        },
+        {
+          count: 56,
+          time: "Wed, 31 Jul 2019 13:00:00 GMT"
         },
         {
           count: 53,
           time: "Wed, 31 Jul 2019 12:45:00 GMT"
         },
         {
-          count: 44,
-          time: "Wed, 31 Jul 2019 11:45:00 GMT"
+          count: 48,
+          time: "Wed, 31 Jul 2019 13:45:00 GMT"
         },
         {
-          count: 39,
-          time: "Wed, 31 Jul 2019 11:30:00 GMT"
+          count: 45,
+          time: "Wed, 31 Jul 2019 14:00:00 GMT"
         },
         {
-          count: 39,
-          time: "Wed, 31 Jul 2019 12:15:00 GMT"
+          count: 26,
+          time: "Wed, 31 Jul 2019 12:30:00 GMT"
         },
         {
-          count: 36,
-          time: "Wed, 31 Jul 2019 13:00:00 GMT"
+          count: 1,
+          time: "Wed, 31 Jul 2019 14:15:00 GMT"
         }
       ],
+      neg_tweets: 345,
       pos_count: [
         {
-          count: 119,
-          time: "Wed, 31 Jul 2019 12:15:00 GMT"
+          count: 117,
+          time: "Wed, 31 Jul 2019 13:30:00 GMT"
         },
         {
-          count: 112,
-          time: "Wed, 31 Jul 2019 12:00:00 GMT"
+          count: 111,
+          time: "Wed, 31 Jul 2019 13:15:00 GMT"
         },
         {
           count: 101,
           time: "Wed, 31 Jul 2019 12:45:00 GMT"
         },
         {
-          count: 91,
+          count: 96,
+          time: "Wed, 31 Jul 2019 13:00:00 GMT"
+        },
+        {
+          count: 95,
+          time: "Wed, 31 Jul 2019 14:00:00 GMT"
+        },
+        {
+          count: 80,
+          time: "Wed, 31 Jul 2019 13:45:00 GMT"
+        },
+        {
+          count: 33,
           time: "Wed, 31 Jul 2019 12:30:00 GMT"
         },
         {
-          count: 89,
-          time: "Wed, 31 Jul 2019 11:45:00 GMT"
-        },
-        {
-          count: 68,
-          time: "Wed, 31 Jul 2019 11:30:00 GMT"
-        },
-        {
-          count: 60,
-          time: "Wed, 31 Jul 2019 13:00:00 GMT"
+          count: 6,
+          time: "Wed, 31 Jul 2019 14:15:00 GMT"
         }
       ],
-      retweets: 576,
+      pos_tweets: 639,
+      retweets: 598,
       time_count: [
         {
-          count: 171,
-          time: "Wed, 31 Jul 2019 12:00:00 GMT"
+          count: 175,
+          time: "Wed, 31 Jul 2019 13:30:00 GMT"
         },
         {
-          count: 158,
-          time: "Wed, 31 Jul 2019 12:15:00 GMT"
+          count: 169,
+          time: "Wed, 31 Jul 2019 13:15:00 GMT"
         },
         {
           count: 154,
           time: "Wed, 31 Jul 2019 12:45:00 GMT"
         },
         {
-          count: 146,
+          count: 152,
+          time: "Wed, 31 Jul 2019 13:00:00 GMT"
+        },
+        {
+          count: 140,
+          time: "Wed, 31 Jul 2019 14:00:00 GMT"
+        },
+        {
+          count: 128,
+          time: "Wed, 31 Jul 2019 13:45:00 GMT"
+        },
+        {
+          count: 59,
           time: "Wed, 31 Jul 2019 12:30:00 GMT"
         },
         {
-          count: 133,
-          time: "Wed, 31 Jul 2019 11:45:00 GMT"
-        },
-        {
-          count: 107,
-          time: "Wed, 31 Jul 2019 11:30:00 GMT"
-        },
-        {
-          count: 96,
-          time: "Wed, 31 Jul 2019 13:00:00 GMT"
+          count: 7,
+          time: "Wed, 31 Jul 2019 14:15:00 GMT"
         }
       ],
-      total_count: 965
+      total_count: 984
     }
   };
 
@@ -168,6 +184,8 @@ class ResultsPage extends Component {
     this.setState({
       total_count: response.data.total_count,
       retweets: response.data.retweets,
+      posTweetsCount: response.data.pos_tweets,
+      negTweetsCount: response.data.neg_tweets,
       linePlotData: {
         labels: labels,
         totalTweets: totalTweets,
@@ -200,17 +218,22 @@ class ResultsPage extends Component {
           </div>
           <div className="pieCharts">
             <div className="pieChart">
-              <h4>Activity Ratio</h4>
+              <h4>Sentiment Ratio</h4>
               <PieChart
-                totalCount={this.state.total_count}
-                retweets={this.state.retweets}
+                categories={["Positive", "Negative"]}
+                colors={["#57FAC7", "#FF3B55"]}
+                counts={[this.state.posTweetsCount, this.state.negTweetsCount]}
               />
             </div>
             <div className="pieChart">
               <h4>Activity Ratio</h4>
               <PieChart
-                totalCount={this.state.total_count}
-                retweets={this.state.retweets}
+                categories={["Orignial", "Retweets"]}
+                colors={["#04DFE8", "white"]}
+                counts={[
+                  this.state.total_count - this.state.retweets,
+                  this.state.retweets
+                ]}
               />
             </div>
           </div>

@@ -5,18 +5,12 @@ class DoughnutChart extends Component {
   data = {
     datasets: [
       {
-        data: [
-          this.props.retweets,
-          this.props.totalCount - this.props.retweets
-        ],
-        backgroundColor: [
-          this.props.color ? this.props.color[0] : "white",
-          this.props.color ? this.props.color[1] : "#2A729D"
-        ]
+        data: this.props.counts,
+        backgroundColor: this.props.colors
         // These labels appear in the legend and in the tooltips when hovering different arcs
       }
     ],
-    labels: ["Retweets", "Original"]
+    labels: this.props.categories
   };
 
   chartOptions = {
