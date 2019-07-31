@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./results-page.css";
 import Nav from "../Navbar/Nav";
 import MyResponsiveLine from "../Graphs/line-plot/line-plot";
+import PieChart from "../Graphs/pie-chart/pie-chart";
 import Aux from "../../HOC/Aux/Aux";
 import axios from "../../axios";
 import moment from "moment";
@@ -75,13 +76,13 @@ class ResultsPage extends Component {
   };
 
   render() {
-    let linePlotContainer = (
+    let resultsPage = (
       <div className="Spinner">
         <Spinner />
       </div>
     );
     if (this.state.total_count) {
-      linePlotContainer = (
+      resultsPage = (
         <Aux>
           <Nav hashtag={this.state.hashtag} />
           <div className="linePlotContainer">
@@ -91,11 +92,15 @@ class ResultsPage extends Component {
             <h4>Number of Users Tweeting</h4>
             <h1>{this.state.total_count}</h1>
           </div>
+          <div className="pieChart">
+            <h4>Activity Ratio</h4>
+            <PieChart />
+          </div>
         </Aux>
       );
     }
 
-    return <Aux>{linePlotContainer}</Aux>;
+    return <Aux>{resultsPage}</Aux>;
   }
 }
 export default ResultsPage;

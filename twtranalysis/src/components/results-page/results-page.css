@@ -21,7 +21,19 @@
   text-align: center;
   font-family: "Muli", sans-serif;
   vertical-align: middle;
-  padding-top: 0.5em;
+  padding: 0.3em;
+  box-sizing: border-box;
+}
+
+.pieChart {
+  padding: 1em;
+  text-align: center;
+  color: #fff;
+  background: radial-gradient(46% 169%, #55c8ff 49%, #42b4fc 100%);
+}
+
+.pieChart h4 {
+  margin-bottom: 0.5em;
 }
 
 .tweetCount h1 {
