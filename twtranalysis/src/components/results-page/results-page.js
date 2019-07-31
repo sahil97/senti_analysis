@@ -3,7 +3,6 @@ import "./results-page.css";
 import Nav from "../Navbar/Nav";
 import MyResponsiveLine from "../Graphs/line-plot/line-plot";
 import PieChart from "../Graphs/pie-chart/pie-chart";
-import Aux from "../../HOC/Aux/Aux";
 import axios from "../../axios";
 import moment from "moment";
 import Spinner from "../Spinner/Spinner";
@@ -186,10 +185,12 @@ class ResultsPage extends Component {
     );
     if (this.state.total_count) {
       resultsPage = (
-        <Aux>
-          <Nav hashtag={this.state.hashtag} />
-          <div className="linePlotContainer">
-            <MyResponsiveLine linePlotData={this.state.linePlotData} />
+        <div className="results-page">
+          <div className="results-header">
+            <Nav hashtag={this.state.hashtag} />
+            <div className="linePlotContainer">
+              <MyResponsiveLine linePlotData={this.state.linePlotData} />
+            </div>
           </div>
           <div className="tweetCount">
             <div className="middle-align">
@@ -197,18 +198,27 @@ class ResultsPage extends Component {
               <h1>{this.state.total_count}</h1>
             </div>
           </div>
-          <div className="pieChart">
-            <h4>Activity Ratio</h4>
-            <PieChart
-              totalCount={this.state.total_count}
-              retweets={this.state.retweets}
-            />
+          <div className="pieCharts">
+            <div className="pieChart">
+              <h4>Activity Ratio</h4>
+              <PieChart
+                totalCount={this.state.total_count}
+                retweets={this.state.retweets}
+              />
+            </div>
+            <div className="pieChart">
+              <h4>Activity Ratio</h4>
+              <PieChart
+                totalCount={this.state.total_count}
+                retweets={this.state.retweets}
+              />
+            </div>
           </div>
-        </Aux>
+        </div>
       );
     }
 
-    return <Aux>{resultsPage}</Aux>;
+    return <div className="result-wrapper">{resultsPage}</div>;
   }
 }
 export default ResultsPage;

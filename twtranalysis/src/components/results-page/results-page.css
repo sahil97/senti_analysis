@@ -1,3 +1,17 @@
+.result-wrapper {
+  height: 100%;
+  background: url("/bg.png") no-repeat center center fixed;
+}
+
+.results-page {
+  background: white;
+  height: 100%;
+}
+
+.results-header {
+  background: url("/bg.png") no-repeat center center fixed;
+}
+
 .linePlotContainer {
   width: 95%;
 }
@@ -25,14 +39,18 @@
   box-sizing: border-box;
 }
 
+.pieCharts {
+  background: white;
+  display: block;
+  margin: auto;
+}
+
 .pieChart {
+  background: url("/bg.png") no-repeat center center fixed;
   font-family: "Muli", sans-serif;
   padding: 1em;
   text-align: center;
   color: #fff;
-  max-width: 768px;
-  display: block;
-  margin: auto;
 }
 
 .pieChart h4 {
@@ -52,10 +70,32 @@
   .tweetCount {
     height: 249px;
   }
+
+  .pieChart {
+    display: inline-block;
+    width: 49%;
+  }
+
+  .pieCharts {
+    display: flex;
+    justify-content: space-between;
+    margin: 1em;
+  }
 }
 @media (max-width: 14440px) {
   .tweetCount {
     height: 200px;
+  }
+
+  .pieChart {
+    display: inline-block;
+    width: 49%;
+  }
+
+  .pieCharts {
+    display: flex;
+    justify-content: space-between;
+    margin: 1em;
   }
 }
 
@@ -63,16 +103,47 @@
   .tweetCount {
     height: 177px;
   }
+
+  .pieChart {
+    display: inline-block;
+    width: 49%;
+  }
+
+  .pieCharts {
+    display: flex;
+    justify-content: space-between;
+    margin: 1em;
+  }
 }
 
 @media (max-width: 768px) {
   .tweetCount {
     height: 162px;
   }
+
+  .pieChart {
+    display: inline-block;
+    width: 49%;
+  }
+
+  .pieCharts {
+    display: flex;
+    justify-content: space-between;
+    margin: 1em;
+  }
 }
 
 @media (max-width: 650px) {
   .tweetCount {
     height: 156px;
+  }
+
+  .pieChart {
+    margin-top: 1em;
+    width: 100%;
+  }
+
+  .pieCharts {
+    display: block;
   }
 }

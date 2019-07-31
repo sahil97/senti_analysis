@@ -9,7 +9,10 @@ class DoughnutChart extends Component {
           this.props.retweets,
           this.props.totalCount - this.props.retweets
         ],
-        backgroundColor: ["white", "#2A729D"]
+        backgroundColor: [
+          this.props.color ? this.props.color[0] : "white",
+          this.props.color ? this.props.color[1] : "#2A729D"
+        ]
         // These labels appear in the legend and in the tooltips when hovering different arcs
       }
     ],
@@ -19,7 +22,9 @@ class DoughnutChart extends Component {
   chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
-    cutoutPercentage: 80
+    cutoutPercentage: this.props.cutoutPercentage
+      ? this.props.cutoutPercentage
+      : 80
   };
 
   render() {
