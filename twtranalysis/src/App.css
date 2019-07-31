@@ -1,6 +1,7 @@
 .App {
   font-family: sans-serif;
   background: url("/bg.png") no-repeat center center fixed;
+  height: 100%;
 }
 
 input:focus,

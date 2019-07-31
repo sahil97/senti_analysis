@@ -51,7 +51,7 @@ class LinePlot extends Component {
       datasets: [
         {
           label: "Total Tweets",
-          data: this.props.linePlotData.plotData,
+          data: this.props.linePlotData.totalTweets,
           lineTension: 0.1,
           backgroundColor: "transparent",
           borderColor: "white",
@@ -61,19 +61,31 @@ class LinePlot extends Component {
           pointHitRadius: 30,
           pointBorderWidth: 2,
           pointStyle: "rectRounded"
+        },
+        {
+          label: "Positive",
+          data: this.props.linePlotData.posTweets,
+          lineTension: 0.1,
+          backgroundColor: "transparent",
+          borderColor: this.colors[0],
+          pointRadius: 5,
+          pointHoverRadius: 10,
+          pointHitRadius: 30,
+          pointBorderWidth: 2,
+          pointStyle: "rectRounded"
+        },
+        {
+          label: "Negative",
+          data: this.props.linePlotData.negTweets,
+          lineTension: 0.1,
+          backgroundColor: "transparent",
+          borderColor: this.colors[1],
+          pointRadius: 5,
+          pointHoverRadius: 10,
+          pointHitRadius: 30,
+          pointBorderWidth: 2,
+          pointStyle: "rectRounded"
         }
-        // {
-        //   label: "Negative",
-        //   data: [1, 29, 73, 10, 50, 25, 10],
-        //   lineTension: 0.1,
-        //   backgroundColor: "transparent",
-        //   borderColor: this.colors[1],
-        //   pointRadius: 5,
-        //   pointHoverRadius: 10,
-        //   pointHitRadius: 30,
-        //   pointBorderWidth: 2,
-        //   pointStyle: "rectRounded"
-        // }
       ]
     };
 

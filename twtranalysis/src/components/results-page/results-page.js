@@ -18,18 +18,98 @@ class ResultsPage extends Component {
 
   response = {
     data: {
-      retweets: 586,
-      time_count: [
-        { count: 189, time: "Tue, 30 Jul 2019 11:15:00 GMT" },
-        { count: 171, time: "Tue, 30 Jul 2019 11:45:00 GMT" },
-        { count: 170, time: "Tue, 30 Jul 2019 12:00:00 GMT" },
-        { count: 166, time: "Tue, 30 Jul 2019 12:15:00 GMT" },
-        { count: 154, time: "Tue, 30 Jul 2019 11:30:00 GMT" },
-        { count: 103, time: "Tue, 30 Jul 2019 11:00:00 GMT" },
-        { count: 33, time: "Tue, 30 Jul 2019 12:30:00 GMT" }
+      neg_count: [
+        {
+          count: 59,
+          time: "Wed, 31 Jul 2019 12:00:00 GMT"
+        },
+        {
+          count: 55,
+          time: "Wed, 31 Jul 2019 12:30:00 GMT"
+        },
+        {
+          count: 53,
+          time: "Wed, 31 Jul 2019 12:45:00 GMT"
+        },
+        {
+          count: 44,
+          time: "Wed, 31 Jul 2019 11:45:00 GMT"
+        },
+        {
+          count: 39,
+          time: "Wed, 31 Jul 2019 11:30:00 GMT"
+        },
+        {
+          count: 39,
+          time: "Wed, 31 Jul 2019 12:15:00 GMT"
+        },
+        {
+          count: 36,
+          time: "Wed, 31 Jul 2019 13:00:00 GMT"
+        }
       ],
-      length: 7,
-      total_count: 986
+      pos_count: [
+        {
+          count: 119,
+          time: "Wed, 31 Jul 2019 12:15:00 GMT"
+        },
+        {
+          count: 112,
+          time: "Wed, 31 Jul 2019 12:00:00 GMT"
+        },
+        {
+          count: 101,
+          time: "Wed, 31 Jul 2019 12:45:00 GMT"
+        },
+        {
+          count: 91,
+          time: "Wed, 31 Jul 2019 12:30:00 GMT"
+        },
+        {
+          count: 89,
+          time: "Wed, 31 Jul 2019 11:45:00 GMT"
+        },
+        {
+          count: 68,
+          time: "Wed, 31 Jul 2019 11:30:00 GMT"
+        },
+        {
+          count: 60,
+          time: "Wed, 31 Jul 2019 13:00:00 GMT"
+        }
+      ],
+      retweets: 576,
+      time_count: [
+        {
+          count: 171,
+          time: "Wed, 31 Jul 2019 12:00:00 GMT"
+        },
+        {
+          count: 158,
+          time: "Wed, 31 Jul 2019 12:15:00 GMT"
+        },
+        {
+          count: 154,
+          time: "Wed, 31 Jul 2019 12:45:00 GMT"
+        },
+        {
+          count: 146,
+          time: "Wed, 31 Jul 2019 12:30:00 GMT"
+        },
+        {
+          count: 133,
+          time: "Wed, 31 Jul 2019 11:45:00 GMT"
+        },
+        {
+          count: 107,
+          time: "Wed, 31 Jul 2019 11:30:00 GMT"
+        },
+        {
+          count: 96,
+          time: "Wed, 31 Jul 2019 13:00:00 GMT"
+        }
+      ],
+      total_count: 965
     }
   };
 
@@ -52,7 +132,9 @@ class ResultsPage extends Component {
 
   showTweets = response => {
     let labels = [];
-    let plotData = [];
+    let totalTweets = [];
+    let posTweets = [];
+    let negTweets = [];
 
     response.data.time_count = response.data.time_count.sort((a, b) => {
       a = moment(a.time, "ddd, DD MMM YYYY HH:mm:ss").toDate();
@@ -60,9 +142,28 @@ class ResultsPage extends Component {
       return a < b ? -1 : a > b ? 1 : 0;
     });
 
+    response.data.pos_count = response.data.pos_count.sort((a, b) => {
+      a = moment(a.time, "ddd, DD MMM YYYY HH:mm:ss").toDate();
+      b = moment(b.time, "ddd, DD MMM YYYY HH:mm:ss").toDate();
+      return a < b ? -1 : a > b ? 1 : 0;
+    });
+
+    response.data.neg_count = response.data.neg_count.sort((a, b) => {
+      a = moment(a.time, "ddd, DD MMM YYYY HH:mm:ss").toDate();
+      b = moment(b.time, "ddd, DD MMM YYYY HH:mm:ss").toDate();
+      return a < b ? -1 : a > b ? 1 : 0;
+    });
+
     response.data.time_count.forEach(tweet => {
       labels.push(moment(tweet.time).toDate());
-      plotData.push(tweet.count);
+      totalTweets.push(tweet.count);
+    });
+
+    response.data.pos_count.forEach(tweet => {
+      posTweets.push(tweet.count);
+    });
+    response.data.neg_count.forEach(tweet => {
+      negTweets.push(tweet.count);
     });
 
     this.setState({
@@ -70,7 +171,9 @@ class ResultsPage extends Component {
       retweets: response.data.retweets,
       linePlotData: {
         labels: labels,
-        plotData: plotData
+        totalTweets: totalTweets,
+        posTweets: posTweets,
+        negTweets: negTweets
       }
     });
   };
