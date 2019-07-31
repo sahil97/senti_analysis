@@ -87,6 +87,10 @@ class ResultsPage extends Component {
           <div className="linePlotContainer">
             <MyResponsiveLine linePlotData={this.state.linePlotData} />
           </div>
+          <div className="tweetCount">
+            <h4>Number of Users Tweeting</h4>
+            <h1>{this.state.total_count}</h1>
+          </div>
         </Aux>
       );
     }

@@ -1,5 +1,4 @@
 .linePlotContainer {
-  height: 500px;
   width: 95%;
 }
 
@@ -11,4 +10,48 @@
   position: absolute;
   top: 20%;
   left: 50%;
+}
+
+.tweetCount {
+  letter-spacing: 2.8px;
+  color: #3c92c9;
+  font-size: 1.5rem;
+  margin-top: 1em;
+  background: white;
+  text-align: center;
+  font-family: "Muli", sans-serif;
+  vertical-align: middle;
+  padding-top: 0.5em;
+}
+
+.tweetCount h1 {
+  font-size: 72px;
+}
+@media (max-width: 2560px) {
+  .tweetCount {
+    height: 249px;
+  }
+}
+@media (max-width: 14440px) {
+  .tweetCount {
+    height: 200px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .tweetCount {
+    height: 177px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tweetCount {
+    height: 162px;
+  }
+}
+
+@media (max-width: 650px) {
+  .tweetCount {
+    height: 156px;
+  }
 }
