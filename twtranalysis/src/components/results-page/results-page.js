@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React, {
+  Component
+} from "react";
 import "./results-page.css";
 import Nav from "../Navbar/Nav";
 import MyResponsiveLine from "../Graphs/line-plot/line-plot";
@@ -19,8 +21,7 @@ class ResultsPage extends Component {
 
   tempResponse = {
     data: {
-      neg_count: [
-        {
+      neg_count: [{
           count: 58,
           time: "Wed, 31 Jul 2019 13:30:00 GMT"
         },
@@ -54,8 +55,7 @@ class ResultsPage extends Component {
         }
       ],
       neg_tweets: 345,
-      pos_count: [
-        {
+      pos_count: [{
           count: 117,
           time: "Wed, 31 Jul 2019 13:30:00 GMT"
         },
@@ -90,8 +90,7 @@ class ResultsPage extends Component {
       ],
       pos_tweets: 639,
       retweets: 598,
-      time_count: [
-        {
+      time_count: [{
           count: 175,
           time: "Wed, 31 Jul 2019 13:30:00 GMT"
         },
@@ -130,22 +129,28 @@ class ResultsPage extends Component {
 
   componentDidMount() {
     const query = new URLSearchParams(window.location.search);
-    for (let param of query.entries()) {
-      this.setState({ hashtag: param[1] });
-    }
 
-    axios
-      .post("", {
-        hashtag: this.state.hashtag
-      })
-      .then(res => {
-        console.log("res", res);
-        this.showTweets(res);
-      })
-      .catch(err => {
-        console.log("Couldn't fetch, showing sample tweets");
-        this.showTweets(this.tempResponse);
+    for (let param of query.entries()) {
+      this.setState({
+        hashtag: param[1]
+      }, () => {
+        let params = {
+          hashtag: this.state.hashtag
+        };
+
+        console.log(params);
+        axios
+          .post("", params)
+          .then(res => {
+            console.log("res", res);
+            this.showTweets(res);
+          })
+          .catch(err => {
+            console.log("Couldn't fetch, showing sample tweets");
+            this.showTweets(this.tempResponse);
+          });
       });
+    };
   }
 
   showTweets = response => {

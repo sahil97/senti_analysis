@@ -12,7 +12,7 @@ import helper as helper
 #Instantiate a flask object
 app = Flask(__name__)
 CORS(app)
-
+app.config['CORS_HEADERS'] = 'Content-Type'
 # import base as helper
 
 
@@ -31,7 +31,6 @@ def home():
 def return_tweets():
     content = request.json
     hashtag = content["hashtag"]
-
     temp_df, retweets = helper.get_tweets(hashtag, 1000)
     temp_df, time_grouped_column_name, end_value = helper.groupByTime(temp_df, 'created_at',0)
     time_count = helper.return_time_count(temp_df, time_grouped_column_name)

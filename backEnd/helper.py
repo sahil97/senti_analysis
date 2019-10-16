@@ -58,9 +58,7 @@ def get_tweets(hashtag, count):
     auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
     api = tweepy.API(auth,wait_on_rate_limit=False)
 
-
-
-    for tweet in limit_handled(tweepy.Cursor(api.search,q="#India",lang="en",
+    for tweet in limit_handled(tweepy.Cursor(api.search,q="#"+hashtag,lang="en",
                                since="2017-04-03").items(count)):
 
         if((len(tweets_text)>0) and (tweet.text == tweets_text[-1])):
