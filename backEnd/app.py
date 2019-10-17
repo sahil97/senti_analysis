@@ -46,5 +46,18 @@ def return_tweets():
         "neg_tweets": neg_tweets
     })
 
+
+@app.route('/api/sentiment',methods = ['POST'])
+@cross_origin()
+def return_sentiment():
+    content = request.json
+    text = content["text"]
+    sentiment = helper.get_sentiment(text)
+
+    return jsonify({
+        "sentiment": sentiment
+    })
+
+
 if __name__== '__main__':
     app.run(debug=True)

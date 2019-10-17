@@ -163,3 +163,14 @@ def split_into_pos_neg(df, end_value):
     neg_time_grouped_df, time_grouped_column_name, end_value = groupByTime(neg_df, 'created_at', end_value)
     neg_count = return_time_count(neg_time_grouped_df, time_grouped_column_name)
     return pos_count,len(pos_df), neg_count, len(neg_df)
+
+def get_sentiment(text):
+    df = pd.DataFrame()
+    df['text'] = [str(text)]
+    try:
+        res = func.spit_results(df,loaded_vec,loaded_model)
+        res = res['sentiment'][0]
+    except Exception as e:
+        return "Positive"
+
+    return res
