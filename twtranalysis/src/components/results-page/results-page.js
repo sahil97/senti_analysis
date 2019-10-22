@@ -229,7 +229,7 @@ class ResultsPage extends Component {
               <h4>Sentiment Ratio</h4>
               <PieChart
                 categories={["Positive", "Negative"]}
-                colors={["#57FAC7", "#FF3B55"]}
+                colors={["#E64398", "#6CDAEE"]}
                 counts={[this.state.posTweetsCount, this.state.negTweetsCount]}
               />
             </div>
